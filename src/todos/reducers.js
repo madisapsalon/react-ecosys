@@ -1,4 +1,5 @@
 import { CREATE_TODO, REMOVE_TODO } from './actions';
+import {MARK_TODO_AS_COMPLETED} from "../../../../../Desktop/Ex_Files_Building_Modern_Projects_React/Exercise Files/CH03/03_11/End/src/todos/actions";
 
 export const todos = (state = [], action) => {
   const { type, payload } = action;
@@ -15,6 +16,15 @@ export const todos = (state = [], action) => {
     case REMOVE_TODO: {
       const { text } = payload;
       return state.filter(todo => todo.text !== text);
+    }
+    case MARK_TODO_AS_COMPLETED: {
+      const { text } = payload;
+      return state.map(todo => {
+        if (todo.text === text) {
+          return { ...todo, isCompleted: true };
+        }
+        return todo;
+      });
     }
     default:
       return state;
